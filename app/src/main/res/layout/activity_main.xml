@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.MainActivity">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <include layout="@layout/title_inventory_items"/>
+
+        <ListView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:id="@android:id/list"
+                  android:layout_marginBottom="15dp"/>
+
+    </LinearLayout>
+
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_item_to_inventory"
+            android:text="Add new Item"
+            android:layout_gravity="bottom"/>
+</FrameLayout>
