@@ -5,19 +5,16 @@
 
     <TextView android:layout_width="@dimen/zero_width"
               android:layout_height="wrap_content"
-              android:id="@+id/item_name"
               android:text="@string/name"
               android:layout_weight=".25"/>
 
     <TextView android:layout_width="@dimen/zero_width"
               android:layout_height="wrap_content"
-              android:id="@+id/item_quantity"
               android:text="@string/quantity"
               android:layout_weight=".25"/>
 
     <TextView android:layout_width="@dimen/zero_width"
               android:layout_height="wrap_content"
-              android:id="@+id/item_price"
               android:text="@string/price"
               android:layout_weight=".25"/>
 

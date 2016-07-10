@@ -1,6 +1,7 @@
 package com.superpak.sammengistu.inventoryapp.adapter;
 
 import com.superpak.sammengistu.inventoryapp.R;
+import com.superpak.sammengistu.inventoryapp.inventory_db.InventoryDatabase;
 import com.superpak.sammengistu.inventoryapp.model.InventoryItem;
 
 import android.content.Context;
@@ -56,15 +57,19 @@ public class InventoryAdapter extends ArrayAdapter{
 
         viewHolder.mInventoryItemName.setText(inventoryItem.getItemName());
         viewHolder.mInventoryItemPrice.setText(inventoryItem.getItemPrice());
-        viewHolder.mInventoryItemQuantity.setText(inventoryItem.getItemQuantity() + "");
+        String quantityAmount = inventoryItem.getItemQuantity() + "";
+        viewHolder.mInventoryItemQuantity.setText(quantityAmount);
 
         viewHolder.mInventoryAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int amount = inventoryItem.getItemQuantity() + 1;
+                mInventoryItems.get(position).setItemQuantity(amount);
                 Log.i(TAG, "amount = " + amount);
-                temp.mInventoryItemQuantity.setText(amount + "");
-//                InventoryDatabase.updateItemCount(inventoryItem, amount,position);
+                String amountText = amount + "";
+                temp.mInventoryItemQuantity.setText(amountText);
+                InventoryDatabase.updateItemCount(inventoryItem, amount, position + 2);
             }
         });
 
@@ -76,10 +81,12 @@ public class InventoryAdapter extends ArrayAdapter{
                     amount = 0;
                 }
                 Log.i(TAG, "amount = " + amount);
+                mInventoryItems.get(position).setItemQuantity(amount);
 
-                temp.mInventoryItemQuantity.setText(amount + "");
+                String amountText = amount + "";
+                temp.mInventoryItemQuantity.setText(amountText);
 
-//                InventoryDatabase.updateItemCount(inventoryItem, amount, position);
+                InventoryDatabase.updateItemCount(inventoryItem, amount, position + 2);
             }
         });
 

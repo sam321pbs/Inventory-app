@@ -26,4 +26,8 @@ public class InventoryItem {
     public String getItemPrice() {
         return mItemPrice;
     }
+
+    public void setItemQuantity(int itemQuantity) {
+        mItemQuantity = itemQuantity;
+    }
 }
