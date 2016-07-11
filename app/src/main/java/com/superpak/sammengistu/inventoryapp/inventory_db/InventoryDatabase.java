@@ -65,6 +65,8 @@ public class InventoryDatabase {
             inventoryItemList.add(inventoryItem);
         }
 
+        mInventoryDBHelper.close();
+
         return inventoryItemList;
     }
 
@@ -80,6 +82,7 @@ public class InventoryDatabase {
         Log.i(TAG, "Id update = " + inventoryItem.getColumnID());
         database.update(DatabaseConstants.INVENTORY_TABLE_NAME, contentValues,
             DatabaseConstants.COLUMN_ID + "=" + inventoryItem.getColumnID(), null);
+        database.close();
     }
 
     public static void deleteItem(Integer pos) {
@@ -87,5 +90,6 @@ public class InventoryDatabase {
 
         database.delete(DatabaseConstants.INVENTORY_TABLE_NAME,
             DatabaseConstants.COLUMN_ID + "=" + pos, null);
+        database.close();
     }
 }

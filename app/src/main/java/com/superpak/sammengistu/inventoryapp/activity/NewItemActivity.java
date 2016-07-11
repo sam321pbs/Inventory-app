@@ -33,6 +33,7 @@ public class NewItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (areAllFieldsEntered()){
+                    InventoryDatabase.mInventoryDBHelper.getWritableDatabase();
                     InventoryItem inventoryItem = new InventoryItem(mNameOfItem.getText().toString(),
                         Integer.parseInt(mQuantityOfItem.getText().toString()),
                         mPriceOfItem.getText().toString());

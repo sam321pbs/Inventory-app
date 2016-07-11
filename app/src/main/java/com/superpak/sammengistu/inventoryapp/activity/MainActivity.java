@@ -7,6 +7,7 @@ import com.superpak.sammengistu.inventoryapp.inventory_db.InventoryDatabase;
 import com.superpak.sammengistu.inventoryapp.model.InventoryItem;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity55";
 
+    private final String FIRST_OPEN = "First Open";
+    private final String INVENTORY = "Inventory";
     private Button mAddNewItemToDBButton;
     private ListView mInventoryListView;
 
@@ -32,6 +35,17 @@ public class MainActivity extends AppCompatActivity {
         mInventoryListView = (ListView) findViewById(android.R.id.list);
 
         InventoryDatabase.mInventoryDBHelper = new InventoryDBHelper(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(INVENTORY, 0);
+
+        if (sharedPreferences.getBoolean(FIRST_OPEN, true)) {
+            InventoryDatabase.addNewItem(new InventoryItem("null", 0, "null"));
+
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(FIRST_OPEN, false);
+            editor.apply();
+        }
 
         mInventoryListView.setAdapter(new InventoryAdapter(
             this, R.layout.list_item_view));
@@ -61,5 +75,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        mInventoryListView.setAdapter(new InventoryAdapter(
+            this, R.layout.list_item_view));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        InventoryDatabase.mInventoryDBHelper.close();
     }
 }

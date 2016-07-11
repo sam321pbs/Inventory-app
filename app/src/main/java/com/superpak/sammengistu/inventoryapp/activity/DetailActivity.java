@@ -92,11 +92,12 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String amountOrder = mOrderAmountEditText.getText().toString();
                 if (!amountOrder.equals("")) {
-                    mInventoryItem.setItemQuantity(mInventoryItem.getItemQuantity() +
-                        Integer.parseInt(amountOrder));
+                    int order = mInventoryItem.getItemQuantity() +
+                        Integer.parseInt(amountOrder);
+                    mInventoryItem.setItemQuantity(order);
 
-                    mDetailQuantityTextView.setText(amountOrder);
-                    InventoryDatabase.updateItemCount(mInventoryItem, Integer.parseInt(amountOrder));
+                    mDetailQuantityTextView.setText(order + "");
+                    InventoryDatabase.updateItemCount(mInventoryItem, order);
 
                 }
             }
@@ -106,7 +107,7 @@ public class DetailActivity extends AppCompatActivity {
     private void setUpTextView() {
         mDetailPriceTextView.setText(mInventoryItem.getItemPrice());
         mDetailNameTextView.setText(mInventoryItem.getItemName());
-        mDetailQuantityTextView.setText(mInventoryItem.getItemQuantity());
+        mDetailQuantityTextView.setText(mInventoryItem.getItemQuantity() + "");
     }
 
     private void initializeViews() {
