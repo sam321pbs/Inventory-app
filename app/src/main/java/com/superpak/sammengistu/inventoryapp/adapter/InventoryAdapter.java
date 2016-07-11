@@ -21,11 +21,26 @@ public class InventoryAdapter extends ArrayAdapter{
     private Context mContext;
     private List<InventoryItem> mInventoryItems;
 
-
-    public InventoryAdapter(Context context, int resource, List<InventoryItem> objects) {
-        super(context, resource, objects);
+    public InventoryAdapter(Context context, int resource) {
+        super(context, resource, InventoryDatabase.getAllInventoryItems());
         mContext = context;
-        mInventoryItems = objects;
+        mInventoryItems = InventoryDatabase.getAllInventoryItems();
+    }
+
+    @Override
+    public int getCount() {
+        return mInventoryItems.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mInventoryItems.get(position);
+    }
+
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -42,7 +57,8 @@ public class InventoryAdapter extends ArrayAdapter{
             viewHolder.mInventoryItemQuantity = (TextView) convertView.findViewById(R.id.item_quantity);
 
             viewHolder.mInventoryAdd = (TextView) convertView.findViewById(R.id.add);
-            viewHolder.mInventoryRemove = (TextView) convertView.findViewById(R.id.remove) ;
+            viewHolder.mInventoryRemove = (TextView) convertView.findViewById(R.id.remove);
+            viewHolder.mInventoryDelete = (TextView) convertView.findViewById(R.id.delete);
 
             // store the holder with the view.
             convertView.setTag(viewHolder);
@@ -59,6 +75,15 @@ public class InventoryAdapter extends ArrayAdapter{
         viewHolder.mInventoryItemPrice.setText(inventoryItem.getItemPrice());
         String quantityAmount = inventoryItem.getItemQuantity() + "";
         viewHolder.mInventoryItemQuantity.setText(quantityAmount);
+        viewHolder.mInventoryDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "delete = " + mInventoryItems.get(position).getColumnID());
+                InventoryDatabase.deleteItem(mInventoryItems.get(position).getColumnID());
+                mInventoryItems.remove(position);
+                InventoryAdapter.this.notifyDataSetChanged();
+            }
+        });
 
         viewHolder.mInventoryAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +94,7 @@ public class InventoryAdapter extends ArrayAdapter{
                 Log.i(TAG, "amount = " + amount);
                 String amountText = amount + "";
                 temp.mInventoryItemQuantity.setText(amountText);
-                InventoryDatabase.updateItemCount(inventoryItem, amount, position + 2);
+                InventoryDatabase.updateItemCount(inventoryItem, amount);
             }
         });
 
@@ -86,7 +111,7 @@ public class InventoryAdapter extends ArrayAdapter{
                 String amountText = amount + "";
                 temp.mInventoryItemQuantity.setText(amountText);
 
-                InventoryDatabase.updateItemCount(inventoryItem, amount, position + 2);
+                InventoryDatabase.updateItemCount(inventoryItem, amount);
             }
         });
 
@@ -99,6 +124,7 @@ public class InventoryAdapter extends ArrayAdapter{
         TextView mInventoryItemPrice;
         TextView mInventoryAdd;
         TextView mInventoryRemove;
+        TextView mInventoryDelete;
 
     }
 }

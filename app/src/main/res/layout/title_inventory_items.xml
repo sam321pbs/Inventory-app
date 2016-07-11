@@ -3,24 +3,16 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 
-    <TextView android:layout_width="@dimen/zero_width"
-              android:layout_height="wrap_content"
-              android:text="@string/name"
-              android:layout_weight=".25"/>
+    <TextView style="@style/row_style"
+              android:text="@string/name"/>
 
-    <TextView android:layout_width="@dimen/zero_width"
-              android:layout_height="wrap_content"
-              android:text="@string/quantity"
-              android:layout_weight=".25"/>
+    <TextView style="@style/row_style"
+              android:text="@string/quantity"/>
 
-    <TextView android:layout_width="@dimen/zero_width"
-              android:layout_height="wrap_content"
-              android:text="@string/price"
-              android:layout_weight=".25"/>
+    <TextView style="@style/row_style"
+              android:text="@string/price"/>
 
-    <TextView android:layout_width="@dimen/zero_width"
-              android:layout_height="wrap_content"
-              android:text="@string/add_remove"
-              android:layout_weight=".25"/>
+    <TextView style="@style/row_style"
+              android:text="@string/add_remove_delete"/>
 
 </TableRow>

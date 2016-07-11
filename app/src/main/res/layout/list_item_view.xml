@@ -22,12 +22,16 @@
 
         <TextView style="@style/add_remove_style"
                   android:id="@+id/add"
-                  android:text="+"/>
-
+                  android:text="@string/plus"/>
 
         <TextView style="@style/add_remove_style"
                   android:id="@+id/remove"
-                  android:text="-"/>
+                  android:text="@string/minus"/>
+
+        <TextView style="@style/add_remove_style"
+                  android:id="@+id/delete"
+                  android:textColor="@color/red"
+                  android:text="@string/x"/>
     </LinearLayout>
 
 

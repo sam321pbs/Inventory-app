@@ -57,24 +57,35 @@ public class InventoryDatabase {
                 cursor.getInt(cursor.getColumnIndex(DatabaseConstants.COLUMN_ITEM_QUANTITY)),
                 cursor.getString(cursor.getColumnIndex(DatabaseConstants.COLUMN_ITEM_PRICE)));
 
+            inventoryItem.setColumnID(
+                cursor.getInt(cursor.getColumnIndex(DatabaseConstants.COLUMN_ID)));
+
+            Log.i(TAG, "inventory id = " + inventoryItem.getColumnID());
+
             inventoryItemList.add(inventoryItem);
         }
 
         return inventoryItemList;
     }
 
-    public static void updateItemCount (InventoryItem inventoryItem, Integer amount, Integer position) {
+    public static void updateItemCount (InventoryItem inventoryItem, Integer amount) {
         SQLiteDatabase database = mInventoryDBHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseConstants.COLUMN_ID, position);
+        contentValues.put(DatabaseConstants.COLUMN_ID, inventoryItem.getColumnID());
         contentValues.put(DatabaseConstants.COLUMN_ITEM_NAME, inventoryItem.getItemName());
         contentValues.put(DatabaseConstants.COLUMN_ITEM_QUANTITY, amount);
         contentValues.put(DatabaseConstants.COLUMN_ITEM_PRICE, inventoryItem.getItemPrice());
 
-        Log.i(TAG, "pos = " + position);
+        Log.i(TAG, "Id update = " + inventoryItem.getColumnID());
         database.update(DatabaseConstants.INVENTORY_TABLE_NAME, contentValues,
-            DatabaseConstants.COLUMN_ID + "=" + position, null);
+            DatabaseConstants.COLUMN_ID + "=" + inventoryItem.getColumnID(), null);
     }
 
+    public static void deleteItem(Integer pos) {
+        SQLiteDatabase database = mInventoryDBHelper.getWritableDatabase();
+
+        database.delete(DatabaseConstants.INVENTORY_TABLE_NAME,
+            DatabaseConstants.COLUMN_ID + "=" + pos, null);
+    }
 }
