@@ -17,4 +17,12 @@
     <string name="sell_one">Sell One</string>
     <string name="order_one">Order One</string>
     <string name="delete_item">Delete item</string>
+    <string name="add_new_item">Add new Item</string>
+    <string name="tap_on_add_new_item_to_get_startted">Tap on Add New Item To get Started</string>
+    <string name="photo_of_product">Photo of product</string>
+    <string name="take_photo">Take photo</string>
+    <string name="type_amount_here">Type Amount Here</string>
+    <string name="type_price_here">Type Price Here</string>
+    <string name="type_name_here">Type Name Here</string>
+    <string name="new_inventory_item">New Inventory Item</string>
 </resources>

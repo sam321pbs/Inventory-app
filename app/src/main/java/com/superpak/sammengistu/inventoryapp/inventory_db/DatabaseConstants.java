@@ -10,4 +10,5 @@ public class DatabaseConstants {
 
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_ID_AUTO = "aut_gen_column";
+    public static final String COLUMN_IMAGE = "Image";
 }

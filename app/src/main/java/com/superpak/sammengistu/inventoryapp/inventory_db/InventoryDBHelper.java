@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class InventoryDBHelper extends SQLiteOpenHelper {
 
-    private final String CREATE = "CREATE TABLE " + DatabaseConstants.INVENTORY_TABLE_NAME
+    private final String CREATE = "CREATE TABLE IF NOT EXISTS " + DatabaseConstants.INVENTORY_TABLE_NAME
         + " ( "
         + DatabaseConstants.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
         + DatabaseConstants.COLUMN_ITEM_NAME + " TEXT,"
         + DatabaseConstants.COLUMN_ITEM_QUANTITY + " REAL,"
-        + DatabaseConstants.COLUMN_ITEM_PRICE + " TEXT)";
+        + DatabaseConstants.COLUMN_ITEM_PRICE + " TEXT,"
+        + DatabaseConstants.COLUMN_IMAGE + " BLOB)";
 
     public InventoryDBHelper(Context context) {
         super(context, DatabaseConstants.DB_NAME, null, 1);

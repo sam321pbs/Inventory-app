@@ -6,11 +6,13 @@ public class InventoryItem {
     private int mItemQuantity;
     private String mItemPrice;
     private int mColumnID;
+    private byte[] mImageBytes;
 
-    public InventoryItem(String itemName, int itemQuantity, String itemPrice) {
+    public InventoryItem(String itemName, int itemQuantity, String itemPrice, byte[] imageBytes) {
         mItemName = itemName;
         mItemQuantity = itemQuantity;
         mItemPrice = itemPrice;
+        mImageBytes = imageBytes;
     }
 
     public String getItemName() {
@@ -35,5 +37,9 @@ public class InventoryItem {
 
     public void setColumnID(int columnID) {
         mColumnID = columnID;
+    }
+
+    public byte[] getImageBytes() {
+        return mImageBytes;
     }
 }

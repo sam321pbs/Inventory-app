@@ -23,6 +23,7 @@ public class InventoryDatabase {
         contentValues.put(DatabaseConstants.COLUMN_ITEM_NAME, inventoryItem.getItemName());
         contentValues.put(DatabaseConstants.COLUMN_ITEM_QUANTITY, inventoryItem.getItemQuantity());
         contentValues.put(DatabaseConstants.COLUMN_ITEM_PRICE, inventoryItem.getItemPrice());
+        contentValues.put(DatabaseConstants.COLUMN_IMAGE, inventoryItem.getImageBytes());
 
         database.insert(DatabaseConstants.INVENTORY_TABLE_NAME, null, contentValues);
 
@@ -51,11 +52,11 @@ public class InventoryDatabase {
 
         while (cursor.moveToNext()){
 
-            Log.i(TAG, "Id = " + cursor.getInt(cursor.getColumnIndex(DatabaseConstants.COLUMN_ID)));
             InventoryItem inventoryItem = new InventoryItem(
                 cursor.getString(cursor.getColumnIndex(DatabaseConstants.COLUMN_ITEM_NAME)),
                 cursor.getInt(cursor.getColumnIndex(DatabaseConstants.COLUMN_ITEM_QUANTITY)),
-                cursor.getString(cursor.getColumnIndex(DatabaseConstants.COLUMN_ITEM_PRICE)));
+                cursor.getString(cursor.getColumnIndex(DatabaseConstants.COLUMN_ITEM_PRICE)),
+                cursor.getBlob(cursor.getColumnIndex(DatabaseConstants.COLUMN_IMAGE)));
 
             inventoryItem.setColumnID(
                 cursor.getInt(cursor.getColumnIndex(DatabaseConstants.COLUMN_ID)));
@@ -78,6 +79,7 @@ public class InventoryDatabase {
         contentValues.put(DatabaseConstants.COLUMN_ITEM_NAME, inventoryItem.getItemName());
         contentValues.put(DatabaseConstants.COLUMN_ITEM_QUANTITY, amount);
         contentValues.put(DatabaseConstants.COLUMN_ITEM_PRICE, inventoryItem.getItemPrice());
+        contentValues.put(DatabaseConstants.COLUMN_IMAGE, inventoryItem.getImageBytes());
 
         Log.i(TAG, "Id update = " + inventoryItem.getColumnID());
         database.update(DatabaseConstants.INVENTORY_TABLE_NAME, contentValues,

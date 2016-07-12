@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private final String INVENTORY = "Inventory";
     private Button mAddNewItemToDBButton;
     private ListView mInventoryListView;
+    public static TextView mEmptyListText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +35,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mInventoryListView = (ListView) findViewById(android.R.id.list);
+        mEmptyListText = (TextView) findViewById(R.id.empty_list_layout);
 
         InventoryDatabase.mInventoryDBHelper = new InventoryDBHelper(this);
 
         SharedPreferences sharedPreferences = getSharedPreferences(INVENTORY, 0);
 
         if (sharedPreferences.getBoolean(FIRST_OPEN, true)) {
-            InventoryDatabase.addNewItem(new InventoryItem("null", 0, "null"));
+
+            InventoryDatabase.addNewItem(new InventoryItem("null", 0, "null", null));
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(FIRST_OPEN, false);
@@ -60,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(DetailActivity.ID, inventoryItems.get(position).getColumnID());
                 intent.putExtra(DetailActivity.PRICE, inventoryItems.get(position).getItemPrice());
                 intent.putExtra(DetailActivity.NAME, inventoryItems.get(position).getItemName());
+                intent.putExtra(DetailActivity.PHOTO, inventoryItems.get(position).getImageBytes());
+
+                Log.i(TAG, "Byte size = " + inventoryItems.get(position).getImageBytes().length);
 
                 startActivity(intent);
             }

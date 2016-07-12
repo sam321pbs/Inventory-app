@@ -1,6 +1,7 @@
 package com.superpak.sammengistu.inventoryapp.adapter;
 
 import com.superpak.sammengistu.inventoryapp.R;
+import com.superpak.sammengistu.inventoryapp.activity.MainActivity;
 import com.superpak.sammengistu.inventoryapp.inventory_db.InventoryDatabase;
 import com.superpak.sammengistu.inventoryapp.model.InventoryItem;
 
@@ -27,6 +28,8 @@ public class InventoryAdapter extends ArrayAdapter{
         super(context, resource, InventoryDatabase.getAllInventoryItems());
         mContext = context;
         mInventoryItems = InventoryDatabase.getAllInventoryItems();
+
+        handleEmptyList();
     }
 
     @Override
@@ -77,6 +80,7 @@ public class InventoryAdapter extends ArrayAdapter{
         viewHolder.mInventoryItemPrice.setText(inventoryItem.getItemPrice());
         String quantityAmount = inventoryItem.getItemQuantity() + "";
         viewHolder.mInventoryItemQuantity.setText(quantityAmount);
+
         viewHolder.mInventoryDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +96,8 @@ public class InventoryAdapter extends ArrayAdapter{
                             InventoryDatabase.deleteItem(mInventoryItems.get(position).getColumnID());
                             mInventoryItems.remove(position);
                             InventoryAdapter.this.notifyDataSetChanged();
+
+                            handleEmptyList();
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, null)
@@ -130,6 +136,15 @@ public class InventoryAdapter extends ArrayAdapter{
         });
 
         return convertView;
+    }
+
+    private void handleEmptyList() {
+        Log.i(TAG, "INventory size = " + mInventoryItems.size());
+        if (mInventoryItems.size() == 0) {
+            MainActivity.mEmptyListText.setVisibility(View.VISIBLE);
+        } else {
+            MainActivity.mEmptyListText.setVisibility(View.GONE);
+        }
     }
 
     static class InventoryViewHolder {
