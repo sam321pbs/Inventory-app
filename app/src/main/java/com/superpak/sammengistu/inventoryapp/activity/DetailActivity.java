@@ -4,8 +4,10 @@ import com.superpak.sammengistu.inventoryapp.R;
 import com.superpak.sammengistu.inventoryapp.inventory_db.InventoryDatabase;
 import com.superpak.sammengistu.inventoryapp.model.InventoryItem;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +31,8 @@ public class DetailActivity extends AppCompatActivity {
     private Button mDeleteItem;
     private Button mOrder;
     private EditText mOrderAmountEditText;
+    private EditText mDetailDecreaseEditText;
+    private Button mDetailDecreaseButton;
 
     private InventoryItem mInventoryItem;
 
@@ -54,9 +58,23 @@ public class DetailActivity extends AppCompatActivity {
         mDeleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InventoryDatabase.deleteItem(getIntent().getIntExtra(ID, 0));
-                Intent intent = new Intent(DetailActivity.this, MainActivity.class);
-                startActivity(intent);
+
+                new AlertDialog.Builder(DetailActivity.this)
+                    .setTitle(DetailActivity.this.getString(R.string.delete))
+                    .setMessage(
+                        DetailActivity.this.getString(R.string.are_you_sure_you_want_to_delete))
+                    .setPositiveButton(DetailActivity.this.getString(R.string.delete),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                InventoryDatabase.deleteItem(getIntent().getIntExtra(ID, 0));
+                                Intent intent = new Intent(DetailActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
             }
         });
 
@@ -98,7 +116,23 @@ public class DetailActivity extends AppCompatActivity {
 
                     mDetailQuantityTextView.setText(order + "");
                     InventoryDatabase.updateItemCount(mInventoryItem, order);
+                }
+            }
+        });
 
+        mDetailDecreaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String amountOrder = mDetailDecreaseEditText.getText().toString();
+                if (!amountOrder.equals("") &&
+                    Integer.parseInt(amountOrder) <=
+                        Integer.parseInt(mDetailQuantityTextView.getText().toString())) {
+                    int order = mInventoryItem.getItemQuantity() -
+                        Integer.parseInt(amountOrder);
+                    mInventoryItem.setItemQuantity(order);
+
+                    mDetailQuantityTextView.setText(order + "");
+                    InventoryDatabase.updateItemCount(mInventoryItem, order);
                 }
             }
         });
@@ -120,5 +154,7 @@ public class DetailActivity extends AppCompatActivity {
         mDetailMinusOne = (Button) findViewById(R.id.minus_one);
         mOrder = (Button) findViewById(R.id.order);
         mOrderAmountEditText = (EditText) findViewById(R.id.order_edittext);
+        mDetailDecreaseEditText = (EditText) findViewById(R.id.decrease_edittext);
+        mDetailDecreaseButton = (Button) findViewById(R.id.sale_order);
     }
 }

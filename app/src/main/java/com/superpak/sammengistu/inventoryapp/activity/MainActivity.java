@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         if (sharedPreferences.getBoolean(FIRST_OPEN, true)) {
             InventoryDatabase.addNewItem(new InventoryItem("null", 0, "null"));
 
-
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(FIRST_OPEN, false);
             editor.apply();

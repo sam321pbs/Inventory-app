@@ -5,6 +5,8 @@ import com.superpak.sammengistu.inventoryapp.inventory_db.InventoryDatabase;
 import com.superpak.sammengistu.inventoryapp.model.InventoryItem;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,10 +80,22 @@ public class InventoryAdapter extends ArrayAdapter{
         viewHolder.mInventoryDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "delete = " + mInventoryItems.get(position).getColumnID());
-                InventoryDatabase.deleteItem(mInventoryItems.get(position).getColumnID());
-                mInventoryItems.remove(position);
-                InventoryAdapter.this.notifyDataSetChanged();
+
+                new AlertDialog.Builder(mContext)
+                    .setTitle(mContext.getString(R.string.delete))
+                    .setMessage(mContext.getString(R.string.are_you_sure_you_want_to_delete))
+                    .setPositiveButton(mContext.getString(R.string.delete),
+                        new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            InventoryDatabase.deleteItem(mInventoryItems.get(position).getColumnID());
+                            mInventoryItems.remove(position);
+                            InventoryAdapter.this.notifyDataSetChanged();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                .show();
             }
         });
 

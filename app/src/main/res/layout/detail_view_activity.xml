@@ -5,78 +5,63 @@
               android:layout_height="match_parent">
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            android:layout_gravity="center_horizontal"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nameTextView"
-            android:layout_gravity="center_horizontal"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Price"
-            android:layout_gravity="center_horizontal"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/price_textView2"
-            android:layout_gravity="center_horizontal"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quantity"
-            android:layout_gravity="center_horizontal"/>
+            style="@style/detail_text_size"
+            android:text="@string/name"/>
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/quantity_textView4"
+            style="@style/detail_text_size"
+            android:id="@+id/nameTextView"/>
 
-            android:layout_gravity="center_horizontal"/>
+    <TextView
+            style="@style/detail_text_size"
+            android:text="@string/price"/>
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="30dp">
+    <TextView
+            style="@style/detail_text_size"
+            android:id="@+id/price_textView2"/>
 
-        <EditText android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/order_edittext"
-                  android:hint="Type amount"
-                  android:inputType="number"
-                  android:ems="10"
-                  android:layout_weight=".66"/>
+    <TextView
+            style="@style/detail_text_size"
+            android:text="@string/quantity"/>
 
-        <Button android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".33"
+    <TextView
+           style="@style/detail_text_size"
+            android:id="@+id/quantity_textView4"/>
+
+    <LinearLayout style="@style/detail_linear_layout_style">
+
+        <EditText style="@style/detail_edit_text_style"
+                  android:id="@+id/order_edittext"/>
+
+        <Button style="@style/detail_order_sale_style"
                 android:id="@+id/order"
-                android:text="order"/>
+                android:text="@string/order"/>
     </LinearLayout>
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="30dp">
+    <LinearLayout style="@style/detail_linear_layout_style">
 
-        <Button android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/add_one"
-                android:text="Add One"
-                android:layout_weight=".5"/>
+        <EditText style="@style/detail_edit_text_style"
+                  android:id="@+id/decrease_edittext"/>
 
-        <Button android:layout_width="0dp"
-                android:id="@+id/minus_one"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                android:text="Minus One"/>
+        <Button style="@style/detail_order_sale_style"
+                android:id="@+id/sale_order"
+                android:text="@string/sale"/>
+    </LinearLayout>
+
+    <LinearLayout style="@style/detail_linear_layout_style">
+
+        <Button style="@style/add_minus_detail_layout"
+                android:text="@string/order_one"
+                android:id="@+id/add_one"/>
+
+        <Button style="@style/add_minus_detail_layout"
+                android:text="@string/sell_one"
+                android:id="@+id/minus_one"/>
     </LinearLayout>
 
     <Button android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Delete item"
+            android:text="@string/delete_item"
             android:id="@+id/delete_item"/>
-
 
 </LinearLayout>
